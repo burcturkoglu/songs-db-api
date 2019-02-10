@@ -21,8 +21,10 @@ Methods which can be used in this REST API are,
      * In this method, any song in the songs collection is rated by passing song_id and rating parameters to this method. Rating must be done by giving value between 1 and 5, unless it gives error.
   6. **_GET_** _/songs/avg/rating/<int:song_id>_
      * By passing a song id to this method the minimum, maximum and average rating values of that song id are returned as a response.
-    
-### 1 - Installation with _Docker_
+
+## Installation
+
+#### 1 - Installation with _Docker_
 
 This is the easy method to start using the API.
 
@@ -43,12 +45,19 @@ After they are installed, follow these steps,
     
 4. Run "docker-compose build", which set python, mongodb and all the requirements for this project at once
 5. And then run "docker-compose up" which starts running flask server
+    
+    ```
+    git clone https://github.com/vurbag/songs-db-api.git
+    cd songs-db-api
+    docker-compose build
+    docker-compose up
+    ```
 
 After it starts, you can go to your web browser and type "http://localhost:5000", you should see the following response,
 
   {"response":{"owner":"Burc Turkoglu","projectName":"REST API For Songs DB","version":"1.0"}}
   
-### 2 - Installation from scratch
+#### 2 - Installation from scratch
 
 With this method you will be able to install everything from scratch.
 
