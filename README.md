@@ -54,8 +54,16 @@ After they are installed, follow these steps,
     ```
 
 After it starts, you can go to your web browser and type "http://localhost:5000", you should see the following response,
-
-  {"response":{"owner":"Burc Turkoglu","projectName":"REST API For Songs DB","version":"1.0"}}
+  
+  ```json
+  {
+    "response": {
+        "owner": "Burc Turkoglu",
+        "projectName": "REST API For Songs DB",
+        "version": "1.0"
+    }
+  }
+  ```
   
 #### 2 - Installation from scratch
 
