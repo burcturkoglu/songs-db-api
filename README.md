@@ -47,6 +47,7 @@ After they are installed, follow these steps,
 5. And then run "docker-compose up" which starts running flask server
     
     ```
+    e.g.
     git clone https://github.com/vurbag/songs-db-api.git
     cd songs-db-api
     docker-compose build
