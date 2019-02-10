@@ -2,7 +2,7 @@ from flask import Flask, jsonify, url_for, redirect, request
 from flask_pymongo import PyMongo
 from flask_restful import Api, Resource
 from pymongo import MongoClient
-import re, os, json
+import re, os
 
 
 app = Flask(__name__)
@@ -24,21 +24,13 @@ Throughout this project, songs.json data which contains several informations abo
 """
 
 
-def getLastUserId():
+def getLastSongId():
   if db.songs.find().count() is not 0:
     last_id = list(db.songs.find({}).sort("song_id", -1).limit(1))
     return last_id[0]["song_id"]
   else:
     return 0
 
-
-def uploadInitialSongs(data):
-    with open(data) as f:
-        d = json.load(f)
-        ids = [{"song_id": i} for i in range(1, len(d) + 1)]
-        d = list(map(lambda x, y: {**x, **y}, ids, d))
-        db.songs.insert(d)
-        f.close()
 
 
 
@@ -120,31 +112,24 @@ class Songs(Resource):
             data = {"response": "File is not valid"}
             return jsonify(data)
         else:
-            """Here in addition to ObjectId, manually created song_id is added to the data"""
-            # for idx, i in enumerate(data):
-            #     cursor = db.songs.find({"$and": [{"title": i["title"]},
-            #                                            {"artist": i["artist"]}]})
-            #     if cursor.count() > 0:
-            #         del data[idx]
-            #
-            # ids = [{"song_id": i} for i in range(1, len(data) + 1)]
-            # data = list(map(lambda x, y: {**x, **y}, ids, data))
-            # db.songs.insert(data)
+            """Here in addition to ObjectId, manually created song_id is added to the data. 
+            When adding new sets of data, by getLastSongId function, last given song_id is got 
+            and new ids are added to the new data incrementally wrt latest id."""
 
             if type(data) is list:
                 for i in data:
-                    cursor = db.songs.find({"title": i["title"], "artist": i["artist"]})
+                    cursor = db.songs.find({"title": i["title"], "artist": i["artist"]}) # Here it's checked that if the song is already exist in the database.
                     if cursor.count() > 0:
                         pass
                     else:
-                        last_id = getLastUserId()
+                        last_id = getLastSongId()
                         db.songs.insert_one({**{"song_id": last_id+1}, **i})
             if type(data) is dict:
-                cursor = db.songs.find({"title": data["title"], "artist": data["artist"]})
+                cursor = db.songs.find({"title": data["title"], "artist": data["artist"]}) # Again it's checked that if the song is already exist in the database.
                 if cursor.count() > 0:
                     pass
                 else:
-                    last_id = getLastUserId()
+                    last_id = getLastSongId()
                     db.songs.insert_one({**{"song_id": last_id + 1}, **data})
 
         return redirect(url_for("songs"))
@@ -153,6 +138,10 @@ class Songs(Resource):
 class SongSearch(Resource):
     def get(self, message=None):
         data = []
+
+        """Here if the message parameter given, it's searched in songs collection 
+        by looking through title and artist features by ignoring case sensitivity. 
+        If message parameter is not given, then songs list is returned."""
 
         if message:
 
@@ -170,11 +159,15 @@ class SongSearch(Resource):
         else:
             return redirect(url_for("songs"))
 
+
 class SongsDifficulty(Resource):
     def get(self, level=None):
         data = []
 
 
+        """Here average of difficulty is found. If level parameter is given,
+         then only the difficulties of songs which belongs to that level are taken into consideration.
+         Else, all the songs are taken into consideration."""
 
         if level:
             cursor = db.songs.find({"level": level}, {"_id": 0})
@@ -183,7 +176,7 @@ class SongsDifficulty(Resource):
                 for song in cursor:
                     data.append(song["difficulty"])
 
-                return jsonify({"level": level, "response": {"average difficulty": round(sum(data) / len(data), 2)}})
+                return jsonify({"level": level, "response": {"Average Difficulty": round(sum(data) / len(data), 2)}})
             else:
                 return jsonify({"level": level, "response": "There isn't any songs in that level."})
         else:
@@ -192,11 +185,21 @@ class SongsDifficulty(Resource):
             for song in cursor:
                 data.append(song["difficulty"])
 
-            return jsonify({"response": {"average difficulty": round(sum(data) / len(data), 2)}})
+            return jsonify({"response": {"Average Difficulty": round(sum(data) / len(data), 2)}})
+
+
 
 class SongsRating(Resource):
+
+    """Here, by using additionally given song ids, ratings are given to the songs and
+     they are collected in a new collection called songratings. And with get method,
+      average rating, minimum rating and maximum rating values for a specific song is found
+      by giving it's song id.
+    """
+
     def get(self, song_id=None):
         data = []
+
 
         if song_id:
             cursor = db.songratings.find({"song_id":song_id}, {"_id": 0})
@@ -205,13 +208,13 @@ class SongsRating(Resource):
                 for song in cursor:
                     data.append(song["rating"])
 
-                return jsonify({"song_id": song_id, "response": {"average rating": round(sum(data) / len(data), 2),
-                                                                 "minimum rating": min(data),
-                                                                 "maximum rating": max(data)}})
+                return jsonify({"song_id": song_id, "response": {"Average Rating": round(sum(data) / len(data), 2),
+                                                                 "Minimum Rating": min(data),
+                                                                 "Maximum Rating": max(data)}})
             elif cursor_all_ratings.count() > 0 and not cursor.count() > 0:
-                return jsonify({"response": "There is no rating for this song id!"})
+                return jsonify({"response": "There is no rating for this song id"})
             else:
-                return jsonify({"response":"There is no song rating list exist yet!"})
+                return jsonify({"response":"There is no song rating list exists yet"})
         else:
             cursor = db.songratings.find({}, {"_id": 0})
             if cursor.count() > 0:
@@ -219,33 +222,33 @@ class SongsRating(Resource):
                     data.append(song)
                 return jsonify({"response":data})
             else:
-                return jsonify({"response": "There is no song rating list exist yet!"})
+                return jsonify({"response": "There is no song rating list exists yet"})
 
     def post(self):
         data = request.get_json()
 
         if not data:
-            return jsonify({"response": "file is not valid"}) #prompted message when empty file is given
+            return jsonify({"response": "File is not valid"})
         else:
             song_id = data.get('song_id')
             rating = data.get('rating')
             if song_id and rating:
                 if not 1 <= rating <= 5:
-                    return jsonify({"response": "ratings should be between 1 and 5!"}) #faulty rating entry message
+                    return jsonify({"response": "Ratings should be between 1 and 5!"})
                 else:
-                    song = db.songs.find({"song_id": song_id}) #checking if song exist in songs collection
+                    song = db.songs.find({"song_id": song_id}) #Here it's checked that if the song exist in songs collection
                     if song.count() > 0:
-                        db.songratings.insert(data) #successfully insert rating of a song to songratings collection
-                        return jsonify({"response": "rating is successfully made"}) #success message
+                        db.songratings.insert(data)
+                        return jsonify({"response": "Rating is successfully made"})
                     else:
-                        return jsonify({"response": "this song does not exist"}) #entered song_id not found in songs collection message
+                        return jsonify({"response": "This song does not exist"})
             else:
                 if not song_id and not rating:
-                    return jsonify({"response": "both song id and rating are missing"}) #message that returns when both song_id and rating are missing
+                    return jsonify({"response": "Both song id and rating are missing"})
                 elif not song_id and rating:
-                    return jsonify({"response": "song id is missing"}) #message that returns when song_id is missing
+                    return jsonify({"response": "Song id is missing"})
                 else:
-                    return jsonify({"response": "rating is missing"}) #message that returns when rating is missing
+                    return jsonify({"response": "Rating is missing"})
 
 
 
@@ -255,7 +258,6 @@ api.add_resource(Index, "/", endpoint="index")
 api.add_resource(Songs, "/songs/", endpoint="songs")
 api.add_resource(SongsDifficulty, "/songs/avg/difficulty/", "/songs/avg/difficulty/<int:level>", endpoint="level")
 api.add_resource(SongSearch, "/songs/search/", "/songs/search/<string:message>", endpoint="message")
-# api.add_resource(SongsRating, "/songs/rating/", endpoint="rating")
 api.add_resource(SongsRating, "/songs/rating/", "/songs/avg/rating/", "/songs/avg/rating/<int:song_id>", endpoint="avg_rating")
 
 
