@@ -44,9 +44,9 @@ After they are installed, follow these steps,
 2. Go to or create the directory which you want to download the code
 3. Run git clone to download this repository and then run "cd songs-db-api" to go to the main directory of programme
 
-    "git clone https://github.com/vurbag/songs-db-api.git"
+    ```git clone https://github.com/vurbag/songs-db-api.git```
     
-    "cd songs-db-api"
+    ```cd songs-db-api```
     
 4. Run "docker-compose build", which set python, mongodb and all the requirements for this project at once
 5. And then run "docker-compose up" which starts running flask server
