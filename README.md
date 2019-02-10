@@ -26,6 +26,14 @@ Methods which can be used in this REST API are,
 
 #### 1 - Installation with _Docker_
 
+
+    ```
+    git clone https://github.com/vurbag/songs-db-api.git
+    cd songs-db-api
+    docker-compose build
+    docker-compose up
+    ```
+
 This is the easy method to start using the API.
 
 It only requires to install Docker and git,
@@ -45,14 +53,6 @@ After they are installed, follow these steps,
     
 4. Run "docker-compose build", which set python, mongodb and all the requirements for this project at once
 5. And then run "docker-compose up" which starts running flask server
-    
-    ```
-    e.g.
-    git clone https://github.com/vurbag/songs-db-api.git
-    cd songs-db-api
-    docker-compose build
-    docker-compose up
-    ```
 
 After it starts, you can go to your web browser and type "http://localhost:5000", you should see the following response,
   
