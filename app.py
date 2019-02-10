@@ -6,12 +6,15 @@ import re, os, json
 
 
 app = Flask(__name__)
-client = MongoClient(
-    os.environ['DB_PORT_27017_TCP_ADDR'],
-    27017)
-db = client.songs_db
-# app.config["MONGO_URI"] = "mongodb://localhost:27017/songs_db"
-# db = PyMongo(app).db
+try:
+    client = MongoClient(
+        os.environ['DB_PORT_27017_TCP_ADDR'],
+        27017)
+
+    db = client.songs_db
+except:
+    app.config["MONGO_URI"] = "mongodb://localhost:27017/songs_db"
+    db = PyMongo(app).db
 # APP_URL = "http://127.0.0.1:5000"
 
 
