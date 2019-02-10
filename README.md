@@ -26,13 +26,10 @@ Methods which can be used in this REST API are,
 
 #### 1 - Installation with _Docker_
 
-
-    ```
     git clone https://github.com/vurbag/songs-db-api.git
     cd songs-db-api
     docker-compose build
     docker-compose up
-    ```
 
 This is the easy method to start using the API.
 
