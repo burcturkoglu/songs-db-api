@@ -15,7 +15,6 @@ try:
 except:
     app.config["MONGO_URI"] = "mongodb://localhost:27017/songs_db"
     db = PyMongo(app).db
-# APP_URL = "http://127.0.0.1:5000"
 
 
 """
