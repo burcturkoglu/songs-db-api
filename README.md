@@ -85,4 +85,22 @@ After the installations are completed, follow these steps,
     
 4. Create virtualenv to install required modules for this project by ```python -m virtualenv venv``` and then activate it by ```source venv/bin/activate``` if you are on Linux/macOS or activate it by ```.\venv\Scripts\activate``` if you are on Windows.
 5. Now download and install requirements for this project by ```pip install -r requirements.txt```
-6. Finally, you can run Flask server by ```python app.py
+6. Finally, you can run Flask server by ```python app.py```
+
+When it starts go to your web browser and type http://localhost:5000, it will give response like,
+
+  ```json
+  {
+    "response": {
+        "owner": "Burc Turkoglu",
+        "projectName": "REST API For Songs DB",
+        "version": "1.0"
+    }
+  }
+  ```
+  
+  ## Usage
+  
+  For using this REST API, it is suggested to use REST clients like [Postman](https://www.getpostman.com/) or [Insomnia](https://insomnia.rest/).
+  
+
