@@ -24,6 +24,8 @@ Methods which can be used in this REST API are,
 
 ## Installation
 
+There are two options to make installations and run this project.
+
 #### 1 - Installation with _Docker_
 
     git clone https://github.com/vurbag/songs-db-api.git
