@@ -1,5 +1,7 @@
 web:
-  build: .
+  build:
+    context: .
+    dockerfile: Dockerfile
   command: python -u app.py
   ports:
     - "5000:5000"
