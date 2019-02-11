@@ -42,7 +42,7 @@ _git_: https://git-scm.com/downloads
 
 After they are installed, follow these steps,
 
-1. Open CMD/Terminal
+1. Open Command Line
 2. Go to or create the directory which you want to download the code
 3. Run git clone to download this repository and then run ```cd songs-db-api``` to go to the main directory of programme
 
@@ -69,7 +69,7 @@ After it starts, you can go to your web browser and type "http://localhost:5000"
 
 This method requires followings,
 
-_Python 3.6 or newer_: * You can check if python exists by typing ```python --version``` to CMD/Terminal.
+_Python 3.6 or newer_: * You can check if python exists by typing ```python --version``` to Command Line.
                        * If not, you can download it from https://www.python.org/downloads/
 _pip_ and _virtualenv_ : By following this [guide](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/) make sure pip and virtualenv is installed.
 _git_: https://git-scm.com/downloads
