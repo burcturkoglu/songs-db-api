@@ -256,8 +256,8 @@ class SongsRating(Resource):
 api = Api(app)
 api.add_resource(Index, "/", endpoint="index")
 api.add_resource(Songs, "/songs/", endpoint="songs")
-api.add_resource(SongsDifficulty, "/songs/avg/difficulty/", "/songs/avg/difficulty/<int:level>", endpoint="level")
 api.add_resource(SongSearch, "/songs/search/", "/songs/search/<string:message>", endpoint="message")
+api.add_resource(SongsDifficulty, "/songs/avg/difficulty/", "/songs/avg/difficulty/<int:level>", endpoint="level")
 api.add_resource(SongsRating, "/songs/rating/", "/songs/avg/rating/", "/songs/avg/rating/<int:song_id>", endpoint="avg_rating")
 
 
