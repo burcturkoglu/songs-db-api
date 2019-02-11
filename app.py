@@ -229,7 +229,8 @@ class SongsRating(Resource):
 
         if not data:
             return jsonify({"response": "File is not valid"})
-        else:
+        elif type(data) is dict:
+			
             song_id = data.get('song_id')
             rating = data.get('rating')
             if song_id and rating:
@@ -249,7 +250,8 @@ class SongsRating(Resource):
                     return jsonify({"response": "Song id is missing"})
                 else:
                     return jsonify({"response": "Rating is missing"})
-
+        else:
+            db.songratings.insert(data)
 
 
 
