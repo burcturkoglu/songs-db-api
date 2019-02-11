@@ -105,4 +105,15 @@ When it starts go to your web browser and type http://localhost:5000, it will gi
   
   For using this REST API, it is suggested to use REST clients like [Postman](https://www.getpostman.com/) or [Insomnia](https://insomnia.rest/).
   
+  Initally, by running ```python test/test.py``` you will add _songs.json_ and _songratings.json_ file to the database by making POST requests. These files also can be added by using clients.
+  
+  **Some example calls,**
+   * **GET** http://localhost:5000/songs/?page=2 - It will give you the second page of songs list, since a single page contains only 10 datapoints, it is expected to see only 1 song in page 2.
+   
+   * **GET** http://localhost:5000/songs/search/yOUs - It will give the every songs which contains "yous" with case insensitivity in their artist name or title.
 
+   * **GET** http://localhost:5000/songs/avg/difficulty/5 - It will give average difficulty of songs in level 5.
+   
+   * **GET** http://localhost:5000/songs/avg/difficulty/ - It will give average difficulty of every songs in the collection.
+   
+   * **GET** http://localhost:5000/songs/avg/rating/9 - It will give minimum, maximum and average rating of song with song_id 9.
