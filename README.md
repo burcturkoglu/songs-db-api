@@ -1,6 +1,6 @@
 # REST API for Songs DB with Flask and MongoDB
 
-This service is written for GET or POST informations on a song database which have features like,
+This service is written for GET or POST informations on a song database with Flask and locally installed MongoDB, it has features like,
   * song_id
   * artist
   * title
@@ -42,7 +42,7 @@ After they are installed, follow these steps,
 
 1. Open CMD/Terminal
 2. Go to or create the directory which you want to download the code
-3. Run git clone to download this repository and then run "cd songs-db-api" to go to the main directory of programme
+3. Run git clone to download this repository and then run ```cd songs-db-api``` to go to the main directory of programme
 
     ```git clone https://github.com/vurbag/songs-db-api.git```
     
@@ -65,6 +65,24 @@ After it starts, you can go to your web browser and type "http://localhost:5000"
   
 #### 2 - Installation from scratch
 
-With this method you will be able to install everything from scratch.
+This method requires followings,
 
+_Python 3.6 or newer_: * You can check if python exists by typing ```python --version``` to CMD/Terminal.
+                       * If not, you can download it from https://www.python.org/downloads/
+_pip_ and _virtualenv_ : By following this [guide](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/) make sure pip and virtualenv is installed.
+_git_: https://git-scm.com/downloads
+_MongoDB_: https://docs.mongodb.com/manual/installation/#mongodb-community-edition
 
+After the installations are completed, follow these steps,
+
+1. Open CMD/Terminal
+2. Go to or create the directory which you want to download the code
+3. Run git clone to download this repository and then run ```cd songs-db-api``` to go to the main directory of programme
+
+    ```git clone https://github.com/vurbag/songs-db-api.git```
+    
+    ```cd songs-db-api```
+    
+4. Create virtualenv to install required modules for this project by ```python -m virtualenv venv``` and then activate it by ```source venv/bin/activate``` if you are on Linux/macOS or activate it by ```.\venv\Scripts\activate``` if you are on Windows.
+5. Now download and install requirements for this project by ```pip install -r requirements.txt```
+6. Finally, you can run Flask server by ```python app.py
