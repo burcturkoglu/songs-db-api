@@ -118,4 +118,6 @@ When it starts go to your web browser and type http://localhost:5000, it will gi
    
    * **GET** http://localhost:5000/songs/avg/difficulty/ - It will give average difficulty of every songs in the collection.
    
+   * **POST** http://localhost:5000/songs/rating/ - You can rate a song by posting json like {"song_id":11, "rating":4}
+   
    * **GET** http://localhost:5000/songs/avg/rating/9 - It will give minimum, maximum and average rating of song with song_id
