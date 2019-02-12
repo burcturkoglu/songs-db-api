@@ -69,10 +69,12 @@ After it starts, you can go to your web browser and type "http://localhost:5000"
 
 This method requires followings,
 
-_Python 3.6 or newer_: * You can check if python exists by typing ```python --version``` to Command Line.
-                       * If not, you can download it from https://www.python.org/downloads/
+_Python 3.6 or newer_: You can check if python exists by typing ```python --version``` to Command Line. If not, you can download it from https://www.python.org/downloads/
+                         
 _pip_ and _virtualenv_ : By following this [guide](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/) make sure pip and virtualenv is installed.
+
 _git_: https://git-scm.com/downloads
+
 _MongoDB_: https://docs.mongodb.com/manual/installation/#mongodb-community-edition
 
 After the installations are completed, follow these steps,
@@ -116,4 +118,4 @@ When it starts go to your web browser and type http://localhost:5000, it will gi
    
    * **GET** http://localhost:5000/songs/avg/difficulty/ - It will give average difficulty of every songs in the collection.
    
-   * **GET** http://localhost:5000/songs/avg/rating/9 - It will give minimum, maximum and average rating of song with song_id 9.
+   * **GET** http://localhost:5000/songs/avg/rating/9 - It will give minimum, maximum and average rating of song with song_id
